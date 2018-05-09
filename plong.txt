@@ -1,0 +1,96 @@
+PL/0 NG
+
+Kommentare
+// bis Zeilenende
+
+/* */ Blockkommentare
+
+
+EOLN:
+CR (Mac), CR-LF/LF-CR (Win), LF (Linux)
+
+Bedeutung:
+> //: EOLN = Ende
+> In Strings nur Blanks, keine Tabs/EOLN
+> Leerraum (außerhalb von String) beendet Token
+
+Sonderzeichen: ASCII das weder Buchstabe, Ziffer, noch Leeraum ist
+
+Trenner: Blank, Kommentar, Sonderzeichen, EOF
+
+Identifier: Bezeichner einer Variable, Subroutine oder Programm; Buchstabe gefolgt von Ziffern oder anderen Buchstaben; Abgeschlossen von Trenner
+
+Maximale Länge von Identifiern und Schlüsselwörtern: 31 Zeichen
+
+Datentypen:
+
+> Int: Vorzeichenbehaftete 16-bit: -2^25 bis 2^15-1
+> String: ASCII Zeichenkette, 1 Byte pro Zeichen, mit 0-Byte beendet; maximale Länge ohne 0-Byte 128 Chars; Escape für ": \"; Umschließende "" in selber Zeile
+> Bool: 0 ^= false, alle anderen int ^= True
+
+> Int-Operationen: +,-,*,/
+> Division: Int-Division; zur nächsten Zahl richtung 0 gerundet
+> Vergleiche: >, >=, <, <=, ==, <>
+
+> String-Operator + zur Konkatenation
+
+Variablen:
+
+Bsp.: int a, b, c;
+String str;
+
+Variablen müssen immer deklariert werden
+
+Statements
+
+Zuweisung:
+int a;
+a:= 10;
+
+If:
+if a=b then
+	// tu was
+else
+	// was anderes
+fi
+
+While Schleife:
+
+while a < b do
+	// mach was
+od
+
+
+Subroutinen
+-> Prozedur: Kette von Statements mit Namen und optionalen Parametern (Zugriff lesend)
+-> Funktion: Prozedur mit Rückgabewert
+
+proc doit()
+  // variablen deklaration
+  begin
+    // mach was
+  end
+
+func String compute(String name)
+  // variablen
+  begin
+    // mach was
+    return "irgendwas";
+  end
+
+Aufruf mit "call prozedur/function"
+
+
+Hauptprogramm:
+
+- hat Namen, alle Deklaration, Kette von Statements
+- erst Variablen, dann Subroutinen deklarieren
+
+programm name() 
+  // variablen
+  // prozeduren und Funktionen
+  begin
+    // Programmstatements
+  end
+---------------------------------
+Schlüsselwörter: int, String, if, then, else, fi, while, do, od, proc, begin, end, return, call
