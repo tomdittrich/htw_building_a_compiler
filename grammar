@@ -1,0 +1,11 @@
+Program = "program"
+
+// die 3 mal pruefen, ist nur kopiert von PL/0
+Expression	=	["+"|"-"] Term {("+"|"-") Term} ;
+Term	=	factor {("*"|"/") Factor} ;
+Factor	=	Ident | Number | "(" Expression ")" ;
+
+Number = Digit {Digit} ;
+Ident = Letter {Letter | Digit} ; // Nummer nur hinten? Dann [{Digit}]
+Digit = "0" | "1" | "2" | ... |"9" ;
+Letter = "a" | ...| "z" | "A" | ... | "Z" ;
