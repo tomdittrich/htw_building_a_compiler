@@ -1,0 +1,51 @@
+programm	= "programm", name, "(", ")", { varDec }, { subRDec }, bodyBlock ;
+
+bodyBlock	= "begin", { statement }, "end" ;
+
+varDec		= intDec | stringDec ;
+intDec		= "int", name, { ",", name }, ";" ;
+stringDec	= "String", name, { ",", name }, ";" ;
+subRDec		= procDec | funcDec;
+
+procDec		= "proc", name, "(", { paramDecs }, ")", { varDec }, bodyBlock ; 
+paramDecs	= paramDec, { ",", paramDec }
+paramDec	= type, name
+type		= "int" | "String"
+funcDec		= "func", type, name, "(", { paramDecs }, ")", { varDec }, bodyBlock ;
+
+statement	= assignStmt | ifStmt | whileStmt | callStmt | returnStmt ;
+assignStmt	= name, ":=", expression, ";" ;
+ifStmt		= "if", boolExpression, "then", { statement }, ( "else", { statement }, ), "fi" ;
+whileStmt	= "while", boolExpression, "do", { statement }, "od" ;
+callStmt	= "call", name, "(", {params}, ")", ";" ;
+returnStmt	= "return", expression, ";" ;
+params		= expression, { ",", expression } ;
+
+expression	= [ sign ], term, { [ sign ], term } ; 
+sign		= "+" | "-"
+term		= factor, { ("*" | "/"),  factor } ;
+factor		= name | "(", expression, ")" | function, "(", { params }, ")" ;
+boolExpression	= expression, (">" | "<" | ">=" | "<=" | "==" | "<>"), expression ;
+
+
+Schlüsselwörter:
+"programm", "begin", "end", "int", "String", "proc", "func", "if", "then", "else", "fi", "while", "do", "od", "call", "return"
+
+Operatoren:
++  -  *  /  <  >  <=  >=  ==  <>  :=  ;  ,  (  )
+
+==============================================================
+
+Fragen:
+
+- Wie bekommen nun int und String ihre Werte?
+
+assignStmt ruft expression auf. Also muss factor (über expression, term) Wert liefern:
+
+factor		= ... | number ;
+number		= digit, {digit} ;
+digit		= "0" | "1" | "2" | "3" | "4" | "5"  | "6"  | "7" | "8" | "9" ;
+
+ABER: String nicht kompatibel mit Operatoren
+
+- Wie mit Sonderfunktionen umgehen (int2String, string2Int, writeLn, ...)?
